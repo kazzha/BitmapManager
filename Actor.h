@@ -1,0 +1,32 @@
+#pragma once
+
+#include "D2DFramework.h"
+
+class Actor
+{
+protected:
+	D2DFramework* mpFramework; // weak ptr처럼 쓰는 것. new나 delete하면 안 됨
+
+	Microsoft::WRL::ComPtr<ID2D1Bitmap> mspBitmap;
+
+	
+
+	float mX;
+	float mY;
+	float mOpacity;
+
+public:
+	Actor() = delete; // 기본생성자가 지워짐
+	Actor(D2DFramework* pFramework, LPCWSTR filename);
+	Actor(D2DFramework* pFramework, LPCWSTR filename, float x, float y, float opacity = 1.0f);
+
+	virtual ~Actor();
+
+private:
+	HRESULT LoadWICImage(LPCWSTR filename);
+	void Draw(float x, float y, float opacity = 1.0f);
+
+public:
+	virtual void Draw(); // 두 개로 나눠 놓는게 유리(?)
+};
+
