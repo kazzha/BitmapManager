@@ -1,8 +1,8 @@
 #pragma once
-#include <wincodec.h>
 #include <d2d1.h>
 #include <wrl/client.h>
 #include "com_exception.h"
+#include "BitmapManager.h"
 
 class D2DFramework
 {
@@ -13,7 +13,6 @@ protected:
 	HWND mHwnd{};
 
 protected:
-	Microsoft::WRL::ComPtr<IWICImagingFactory> mspWICFactory{};
 	Microsoft::WRL::ComPtr<ID2D1Factory> mspD2DFactory{};
 	Microsoft::WRL::ComPtr<ID2D1HwndRenderTarget> mspRenderTarget{};
 
@@ -36,11 +35,6 @@ public:
 	inline ID2D1HwndRenderTarget* GetRenderTarget()
 	{
 		return mspRenderTarget.Get();
-	}
-
-	inline IWICImagingFactory* GetWICFactory()
-	{
-		return mspWICFactory.Get();
 	}
 
 	inline ID2D1Factory* GetD2DFactory()
